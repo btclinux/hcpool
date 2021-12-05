@@ -13,7 +13,7 @@ import (
 
 	bolt "github.com/coreos/bbolt"
 	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 )
 
 // createPersistedAccount creates a pool account with the provided parameters
