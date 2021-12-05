@@ -18,8 +18,8 @@ import (
 	"github.com/decred/dcrd/dcrutil"
 	"github.com/decred/dcrd/rpcclient"
 
-	"github.com/decred/dcrpool/gui"
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/gui"
+	"github.com/btclinux/hcpool/pool"
 )
 
 // miningPool represents a decred Proof-of-Work mining pool.
