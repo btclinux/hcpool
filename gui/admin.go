@@ -11,7 +11,7 @@ import (
 
 	"github.com/gorilla/csrf"
 
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/pool"
 )
 
 type adminPageData struct {
