@@ -15,7 +15,7 @@ import (
 	"os/signal"
 	"runtime"
 
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 	"github.com/decred/dcrd/rpcclient"
 
 	"github.com/btclinux/hcpool/gui"
