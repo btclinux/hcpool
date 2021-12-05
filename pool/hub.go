@@ -20,7 +20,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/decred/dcrd/chaincfg"
 	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 	"github.com/decred/dcrd/rpcclient"
 	"github.com/decred/dcrd/wire"
 	"github.com/decred/dcrwallet/rpc/walletrpc"
