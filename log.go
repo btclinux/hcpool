@@ -13,8 +13,8 @@ import (
 	"github.com/decred/slog"
 	"github.com/jrick/logrotate/rotator"
 
-	"github.com/decred/dcrpool/gui"
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/gui"
+	"github.com/btclinux/hcpool/pool"
 )
 
 // logWriter implements an io.Writer that outputs to both standard output and
