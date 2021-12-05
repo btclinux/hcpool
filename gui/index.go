@@ -98,7 +98,7 @@ func (ui *GUI) GetIndex(w http.ResponseWriter, r *http.Request) {
 	data.Address = address
 
 	// Ensure the provided address is valid.
-	addr, err := dcrutil.DecodeAddress(address)
+	addr, err := hcutil.DecodeAddress(address)
 	if err != nil {
 		data.Error = fmt.Sprintf("Failed to decode address")
 		ui.renderTemplate(w, r, "index", data)

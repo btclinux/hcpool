@@ -266,7 +266,7 @@ func sharePercentages(shares []*Share) (map[string]*big.Rat, error) {
 }
 
 // CalculatePayments calculates the payments due participating accounts.
-func CalculatePayments(percentages map[string]*big.Rat, total dcrutil.Amount,
+func CalculatePayments(percentages map[string]*big.Rat, total hcutil.Amount,
 	poolFee float64, height uint32, estMaturity uint32) ([]*Payment, error) {
 	// Deduct pool fee from the amount to be shared.
 	fee := total.MulF64(poolFee)

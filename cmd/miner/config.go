@@ -31,7 +31,7 @@ const (
 
 var (
 	defaultActiveNet  = chaincfg.SimNetParams.Name
-	defaultHomeDir    = dcrutil.AppDataDir("miner", false)
+	defaultHomeDir    = hcutil.AppDataDir("miner", false)
 	defaultConfigFile = filepath.Join(defaultHomeDir, defaultConfigFilename)
 	defaultLogDir     = filepath.Join(defaultHomeDir, defaultLogDirname)
 )

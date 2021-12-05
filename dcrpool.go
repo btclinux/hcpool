@@ -46,12 +46,12 @@ func newPool(cfg *config) (*miningPool, error) {
 		Certificates: cfg.dcrdRPCCerts,
 	}
 
-	minPmt, err := dcrutil.NewAmount(cfg.MinPayment)
+	minPmt, err := hcutil.NewAmount(cfg.MinPayment)
 	if err != nil {
 		return nil, err
 	}
 
-	maxTxFeeReserve, err := dcrutil.NewAmount(cfg.MaxTxFeeReserve)
+	maxTxFeeReserve, err := hcutil.NewAmount(cfg.MaxTxFeeReserve)
 	if err != nil {
 		return nil, err
 	}

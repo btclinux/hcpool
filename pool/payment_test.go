@@ -74,7 +74,7 @@ func TestPayPerShare(t *testing.T) {
 			expectedShareCount, len(shares))
 	}
 
-	amt, err := dcrutil.NewAmount(expectedTotal)
+	amt, err := hcutil.NewAmount(expectedTotal)
 	if err != nil {
 		t.Error(err)
 	}
@@ -211,7 +211,7 @@ func TestPayPerLastShare(t *testing.T) {
 			expectedShareCount, len(shares))
 	}
 
-	amt, err := dcrutil.NewAmount(expectedTotal)
+	amt, err := hcutil.NewAmount(expectedTotal)
 	if err != nil {
 		t.Error(err)
 	}
@@ -302,7 +302,7 @@ func TestPayPerLastShare(t *testing.T) {
 }
 
 // CreatePaymentBundle instantiates a payment bundle.
-func CreatePaymentBundle(account string, count uint32, paymentAmount dcrutil.Amount) *PaymentBundle {
+func CreatePaymentBundle(account string, count uint32, paymentAmount hcutil.Amount) *PaymentBundle {
 	bundle := newPaymentBundle(account)
 	for idx := uint32(0); idx < count; idx++ {
 		payment := NewPayment(account, paymentAmount, 0, 0)
@@ -327,7 +327,7 @@ func TestEqualPaymentDetailsGeneration(t *testing.T) {
 	defer td()
 
 	count := uint32(3)
-	pmtAmt, _ := dcrutil.NewAmount(10.5)
+	pmtAmt, _ := hcutil.NewAmount(10.5)
 	bundleX := CreatePaymentBundle(xID, count, pmtAmt)
 	bundleY := CreatePaymentBundle(yID, count, pmtAmt)
 	expectedTotal := pmtAmt.MulF64(6)
@@ -335,11 +335,11 @@ func TestEqualPaymentDetailsGeneration(t *testing.T) {
 	bundles := make([]*PaymentBundle, 0)
 	bundles = append(bundles, bundleX)
 	bundles = append(bundles, bundleY)
-	zeroAmt := dcrutil.Amount(0)
-	txFeeReserve := dcrutil.Amount(0)
+	zeroAmt := hcutil.Amount(0)
+	txFeeReserve := hcutil.Amount(0)
 
 	details, totalAmt, err := generatePaymentDetails(db,
-		[]dcrutil.Address{poolFeeAddrs}, bundles, zeroAmt, &txFeeReserve)
+		[]hcutil.Address{poolFeeAddrs}, bundles, zeroAmt, &txFeeReserve)
 	if err != nil {
 		t.Error(err)
 	}
@@ -378,8 +378,8 @@ func TestUnequalPaymentDetailsGeneration(t *testing.T) {
 	defer td()
 
 	count := uint32(2)
-	accXAmt, _ := dcrutil.NewAmount(9.5)
-	accYAmt, _ := dcrutil.NewAmount(4)
+	accXAmt, _ := hcutil.NewAmount(9.5)
+	accYAmt, _ := hcutil.NewAmount(4)
 	bundleX := CreatePaymentBundle(xID, count, accXAmt)
 	bundleY := CreatePaymentBundle(yID, count, accYAmt)
 	xTotal := accXAmt.MulF64(2)
@@ -390,11 +390,11 @@ func TestUnequalPaymentDetailsGeneration(t *testing.T) {
 	bundles = append(bundles, bundleX)
 	bundles = append(bundles, bundleY)
 
-	zeroAmt := dcrutil.Amount(0)
-	txFeeReserve := dcrutil.Amount(0)
+	zeroAmt := hcutil.Amount(0)
+	txFeeReserve := hcutil.Amount(0)
 
 	details, totalAmt, err := generatePaymentDetails(db,
-		[]dcrutil.Address{poolFeeAddrs}, bundles, zeroAmt, &txFeeReserve)
+		[]hcutil.Address{poolFeeAddrs}, bundles, zeroAmt, &txFeeReserve)
 	if err != nil {
 		t.Error(err)
 	}
@@ -440,7 +440,7 @@ func TestPaymentsMaturity(t *testing.T) {
 	shareCount := 10
 	height := uint32(20)
 	feePercent := 0.1
-	amt, err := dcrutil.NewAmount(100.25)
+	amt, err := hcutil.NewAmount(100.25)
 	if err != nil {
 		t.Error(err)
 	}
@@ -472,7 +472,7 @@ func TestPaymentsMaturity(t *testing.T) {
 		t.Error(err)
 	}
 
-	minPayment, err := dcrutil.NewAmount(0.2)
+	minPayment, err := hcutil.NewAmount(0.2)
 	if err != nil {
 		t.Error(err)
 	}
@@ -527,7 +527,7 @@ func TestArchivedPaymentsFiltering(t *testing.T) {
 	defer td()
 
 	count := uint32(2)
-	amt, _ := dcrutil.NewAmount(5)
+	amt, _ := hcutil.NewAmount(5)
 
 	bx := CreatePaymentBundle(xID, count, amt)
 	bx.UpdateAsPaid(db, 10, "")

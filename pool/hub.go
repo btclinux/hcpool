@@ -78,17 +78,17 @@ type HubConfig struct {
 	ActiveNet             *chaincfg.Params
 	DcrdRPCCfg            *rpcclient.ConnConfig
 	PoolFee               float64
-	MaxTxFeeReserve       dcrutil.Amount
+	MaxTxFeeReserve       hcutil.Amount
 	MaxGenTime            uint64
 	WalletRPCCertFile     string
 	WalletGRPCHost        string
 	PaymentMethod         string
 	LastNPeriod           uint32
 	WalletPass            string
-	MinPayment            dcrutil.Amount
+	MinPayment            hcutil.Amount
 	DBFile                string
 	SoloPool              bool
-	PoolFeeAddrs          []dcrutil.Address
+	PoolFeeAddrs          []hcutil.Address
 	BackupPass            string
 	Secret                string
 	NonceIterations       float64
@@ -125,7 +125,7 @@ type Hub struct {
 	discCh         chan []byte
 	ctx            context.Context
 	cancel         context.CancelFunc
-	txFeeReserve   dcrutil.Amount
+	txFeeReserve   hcutil.Amount
 	endpoints      []*endpoint
 	blake256Pad    []byte
 	connections    map[string]uint32
@@ -344,7 +344,7 @@ func NewHub(ctx context.Context, cancel context.CancelFunc, httpc *http.Client, 
 		txFeeReserveB := pbkt.Get(txFeeReserve)
 		if txFeeReserveB == nil {
 			log.Info("Tx fee reserve value not found in db, initializing.")
-			h.txFeeReserve = dcrutil.Amount(0)
+			h.txFeeReserve = hcutil.Amount(0)
 			tbytes := make([]byte, 4)
 			binary.LittleEndian.PutUint32(tbytes, uint32(h.txFeeReserve))
 			err := pbkt.Put(txFeeReserve, tbytes)
@@ -355,7 +355,7 @@ func NewHub(ctx context.Context, cancel context.CancelFunc, httpc *http.Client, 
 
 		if txFeeReserveB != nil {
 			feeReserve := binary.LittleEndian.Uint32(txFeeReserveB)
-			h.txFeeReserve = dcrutil.Amount(feeReserve)
+			h.txFeeReserve = hcutil.Amount(feeReserve)
 		}
 
 		lastPaymentHeightB := pbkt.Get(lastPaymentHeight)
@@ -514,7 +514,7 @@ func (h *Hub) GetWork() (string, string, error) {
 }
 
 // PublishTransaction creates a transaction paying pool accounts for work done.
-func (h *Hub) PublishTransaction(payouts map[dcrutil.Address]dcrutil.Amount, targetAmt dcrutil.Amount) (string, error) {
+func (h *Hub) PublishTransaction(payouts map[hcutil.Address]hcutil.Amount, targetAmt hcutil.Amount) (string, error) {
 	outs := make([]*walletrpc.ConstructTransactionRequest_Output, 0, len(payouts))
 	for addr, amt := range payouts {
 		out := &walletrpc.ConstructTransactionRequest_Output{
@@ -798,7 +798,7 @@ func (h *Hub) handleChainUpdates(ctx context.Context) {
 				}
 
 				coinbase :=
-					dcrutil.Amount(block.Transactions[0].TxOut[2].Value)
+					hcutil.Amount(block.Transactions[0].TxOut[2].Value)
 
 				log.Tracef("Accepted work %s at height #%d has coinbase"+
 					" of %v", header.PrevBlock.String(), header.Height-1,
@@ -956,9 +956,9 @@ func (h *Hub) processPayments(height uint32) error {
 
 	// Create address-amount kv pairs for the transaction, using the payment
 	// details.
-	pmts := make(map[dcrutil.Address]dcrutil.Amount, len(details))
+	pmts := make(map[hcutil.Address]hcutil.Amount, len(details))
 	for addrStr, amt := range details {
-		addr, err := dcrutil.DecodeAddress(addrStr)
+		addr, err := hcutil.DecodeAddress(addrStr)
 		if err != nil {
 			return err
 		}

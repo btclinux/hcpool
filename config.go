@@ -65,7 +65,7 @@ var (
 	defaultActiveNet     = chaincfg.SimNetParams.Name
 	defaultPaymentMethod = pool.PPLNS
 	defaultMinPayment    = 0.2
-	dcrpoolHomeDir       = dcrutil.AppDataDir("dcrpool", false)
+	dcrpoolHomeDir       = hcutil.AppDataDir("dcrpool", false)
 	defaultConfigFile    = filepath.Join(dcrpoolHomeDir, defaultConfigFilename)
 	defaultDataDir       = filepath.Join(dcrpoolHomeDir, defaultDataDirname)
 	defaultDBFile        = filepath.Join(defaultDataDir, defaultDBFilename)
@@ -117,7 +117,7 @@ type config struct {
 	DR3Port               uint32   `long:"dr3port" ini-name:"dr3port" description:"Antminer DR3 connection port."`
 	DR5Port               uint32   `long:"dr5port" ini-name:"dr5port" description:"Antminer DR5 connection port."`
 	D1Port                uint32   `long:"d1port" ini-name:"d1port" description:"Whatsminer D1 connection port."`
-	poolFeeAddrs          []dcrutil.Address
+	poolFeeAddrs          []hcutil.Address
 	dcrdRPCCerts          []byte
 	net                   *chaincfg.Params
 }
@@ -552,7 +552,7 @@ func loadConfig() (*config, []string, error) {
 		}
 
 		for _, pAddr := range cfg.PoolFeeAddrs {
-			addr, err := dcrutil.DecodeAddress(pAddr)
+			addr, err := hcutil.DecodeAddress(pAddr)
 			if err != nil {
 				str := "%s: pool fee address '%v' failed to decode: %v"
 				err := fmt.Errorf(str, funcName, pAddr, err)

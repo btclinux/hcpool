@@ -22,14 +22,14 @@ type Payment struct {
 	Account           string         `json:"account"`
 	EstimatedMaturity uint32         `json:"estimatedmaturity"`
 	Height            uint32         `json:"height"`
-	Amount            dcrutil.Amount `json:"amount"`
+	Amount            hcutil.Amount `json:"amount"`
 	CreatedOn         int64          `json:"createdon"`
 	PaidOnHeight      uint32         `json:"paidonheight"`
 	TransactionID     string         `json:"transactionid"`
 }
 
 // NewPayment creates a payment instance.
-func NewPayment(account string, amount dcrutil.Amount, height uint32, estMaturity uint32) *Payment {
+func NewPayment(account string, amount hcutil.Amount, height uint32, estMaturity uint32) *Payment {
 	return &Payment{
 		Account:           account,
 		Amount:            amount,
@@ -151,8 +151,8 @@ func newPaymentBundle(account string) *PaymentBundle {
 }
 
 // Total returns the sum of all payments amount for the account.
-func (bundle *PaymentBundle) Total() dcrutil.Amount {
-	total := dcrutil.Amount(0)
+func (bundle *PaymentBundle) Total() hcutil.Amount {
+	total := hcutil.Amount(0)
 	for _, payment := range bundle.Payments {
 		total += payment.Amount
 	}
@@ -312,7 +312,7 @@ func FetchPendingPaymentsAtHeight(db *bolt.DB, height uint32) ([]*Payment, error
 
 // FetchEligiblePaymentBundles fetches payment bundles greater than the
 // configured minimum payment.
-func FetchEligiblePaymentBundles(db *bolt.DB, height uint32, minPayment dcrutil.Amount) ([]*PaymentBundle, error) {
+func FetchEligiblePaymentBundles(db *bolt.DB, height uint32, minPayment hcutil.Amount) ([]*PaymentBundle, error) {
 	maturePayments, err := FetchMaturePendingPayments(db, height)
 	if err != nil {
 		return nil, err
@@ -330,7 +330,7 @@ func FetchEligiblePaymentBundles(db *bolt.DB, height uint32, minPayment dcrutil.
 
 // replenishTxFeeReserve adjusts the pool fee amount supplied to leave the
 // specified max tx fee reserve.
-func replenishTxFeeReserve(maxTxFeeReserve dcrutil.Amount, txFeeReserve *dcrutil.Amount, poolFee dcrutil.Amount) dcrutil.Amount {
+func replenishTxFeeReserve(maxTxFeeReserve hcutil.Amount, txFeeReserve *hcutil.Amount, poolFee hcutil.Amount) hcutil.Amount {
 	if *txFeeReserve < maxTxFeeReserve {
 		diff := maxTxFeeReserve - *txFeeReserve
 		*txFeeReserve += diff
@@ -343,7 +343,7 @@ func replenishTxFeeReserve(maxTxFeeReserve dcrutil.Amount, txFeeReserve *dcrutil
 // PayPerShare generates a payment bundle comprised of payments to all
 // participating accounts. Payments are calculated based on work contributed
 // to the pool since the last payment batch.
-func PayPerShare(db *bolt.DB, total dcrutil.Amount, poolFee float64, height uint32, coinbaseMaturity uint16) error {
+func PayPerShare(db *bolt.DB, total hcutil.Amount, poolFee float64, height uint32, coinbaseMaturity uint16) error {
 	now := time.Now()
 	percentages, err := PPSSharePercentages(db, poolFee, height)
 	if err != nil {
@@ -402,7 +402,7 @@ func PayPerShare(db *bolt.DB, total dcrutil.Amount, poolFee float64, height uint
 
 // PayPerLastNShares generates a payment bundle comprised of payments to all
 // participating accounts within the last n time period provided.
-func PayPerLastNShares(db *bolt.DB, amount dcrutil.Amount, poolFee float64, height uint32, coinbaseMaturity uint16, periodSecs uint32) error {
+func PayPerLastNShares(db *bolt.DB, amount hcutil.Amount, poolFee float64, height uint32, coinbaseMaturity uint16, periodSecs uint32) error {
 	percentages, err := PPLNSSharePercentages(db, poolFee, height, periodSecs)
 	if err != nil {
 		return err
@@ -461,12 +461,12 @@ func PayPerLastNShares(db *bolt.DB, amount dcrutil.Amount, poolFee float64, heig
 
 // generatePaymentDetails generates kv pair of addresses and payment amounts
 // from the provided eligible payments.
-func generatePaymentDetails(db *bolt.DB, poolFeeAddrs []dcrutil.Address,
-	eligiblePmts []*PaymentBundle, maxTxFeeReserve dcrutil.Amount,
-	txFeeReserve *dcrutil.Amount) (map[string]dcrutil.Amount, *dcrutil.Amount, error) {
+func generatePaymentDetails(db *bolt.DB, poolFeeAddrs []hcutil.Address,
+	eligiblePmts []*PaymentBundle, maxTxFeeReserve hcutil.Amount,
+	txFeeReserve *hcutil.Amount) (map[string]hcutil.Amount, *hcutil.Amount, error) {
 	// Generate the address and payment amount kv pairs.
-	var targetAmt dcrutil.Amount
-	pmts := make(map[string]dcrutil.Amount)
+	var targetAmt hcutil.Amount
+	pmts := make(map[string]hcutil.Amount)
 
 	// Fetch a pool fee address at random.
 	rand.Seed(time.Now().UnixNano())

@@ -31,7 +31,7 @@ var (
 	yID = ""
 
 	// Pool fee address.
-	poolFeeAddrs, _ = dcrutil.DecodeAddress("SsnbEmxCVXskgTHXvf3rEa17NA39qQuGHwQ")
+	poolFeeAddrs, _ = hcutil.DecodeAddress("SsnbEmxCVXskgTHXvf3rEa17NA39qQuGHwQ")
 )
 
 // setupDB initializes the pool database.

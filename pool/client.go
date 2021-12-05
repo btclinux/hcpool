@@ -227,7 +227,7 @@ func (c *Client) handleAuthorizeRequest(req *Request, allowed bool) {
 
 		// Ensure the provided address is valid and associated with the active
 		// network.
-		addr, err := dcrutil.DecodeAddress(address)
+		addr, err := hcutil.DecodeAddress(address)
 		if err != nil {
 			log.Errorf("unable to decode address: %v", err)
 			err := NewStratumError(Unknown, nil)
