@@ -25,7 +25,7 @@ import (
 	"github.com/decred/dcrd/dcrutil"
 	"github.com/decred/slog"
 
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/pool"
 )
 
 const (
