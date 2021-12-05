@@ -21,7 +21,7 @@ import (
 	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/chaincfg/chainhash"
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/btclinux/hcrpcclient"
+	"github.com/decred/dcrd/rpcclient"
 	"github.com/HcashOrg/hcd/wire"
 	"github.com/HcashOrg/hcwallet/rpc/walletrpc"
 	"google.golang.org/grpc"
@@ -76,7 +76,7 @@ var (
 // HubConfig represents configuration details for the hub.
 type HubConfig struct {
 	ActiveNet             *chaincfg.Params
-	DcrdRPCCfg            *hcrpcclient.ConnConfig
+	DcrdRPCCfg            *rpcclient.ConnConfig
 	PoolFee               float64
 	MaxTxFeeReserve       hcutil.Amount
 	MaxGenTime            uint64
@@ -114,7 +114,7 @@ type Hub struct {
 	httpc          *http.Client
 	cfg            *HubConfig
 	limiter        *RateLimiter
-	rpcc           *hcrpcclient.Client
+	rpcc           *rpcclient.Client
 	rpccMtx        sync.Mutex
 	gConn          *grpc.ClientConn
 	grpc           walletrpc.WalletServiceClient
@@ -404,7 +404,7 @@ func NewHub(ctx context.Context, cancel context.CancelFunc, httpc *http.Client, 
 	}
 
 	// Create handlers for chain notifications being subscribed for.
-	ntfnHandlers := &hcrpcclient.NotificationHandlers{
+	ntfnHandlers := &rpcclient.NotificationHandlers{
 		OnBlockConnected: func(headerB []byte, transactions [][]byte) {
 			h.connCh <- headerB
 		},
@@ -420,7 +420,7 @@ func NewHub(ctx context.Context, cancel context.CancelFunc, httpc *http.Client, 
 	}
 
 	// Establish RPC connection with dcrd.
-	rpcc, err := hcrpcclient.New(hcfg.DcrdRPCCfg, ntfnHandlers)
+	rpcc, err := rpcclient.New(hcfg.DcrdRPCCfg, ntfnHandlers)
 	if err != nil {
 		return nil, MakeError(ErrOther, "dcrd rpc error", err)
 	}
