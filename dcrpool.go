@@ -16,7 +16,7 @@ import (
 	"runtime"
 
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/HcashOrg/hcrpcclient"
+	"github.com/btclinux/hcrpcclient"
 
 	"github.com/btclinux/hcpool/gui"
 	"github.com/btclinux/hcpool/pool"

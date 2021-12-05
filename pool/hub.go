@@ -21,7 +21,7 @@ import (
 	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/chaincfg/chainhash"
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/HcashOrg/hcrpcclient"
+	"github.com/btclinux/hcrpcclient"
 	"github.com/HcashOrg/hcd/wire"
 	"github.com/HcashOrg/hcwallet/rpc/walletrpc"
 	"google.golang.org/grpc"
