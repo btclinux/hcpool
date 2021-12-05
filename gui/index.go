@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 	"github.com/btclinux/hcpool/pool"
 )
 
