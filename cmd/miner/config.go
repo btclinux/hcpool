@@ -16,9 +16,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/decred/slog"
+	"github.com/HcashOrg/slog"
 	flags "github.com/jessevdk/go-flags"
 )
 

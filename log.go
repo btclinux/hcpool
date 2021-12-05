@@ -10,7 +10,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/decred/slog"
+	"github.com/HcashOrg/slog"
 	"github.com/jrick/logrotate/rotator"
 
 	"github.com/btclinux/hcpool/gui"

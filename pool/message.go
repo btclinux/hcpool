@@ -12,7 +12,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/decred/dcrd/wire"
+	"github.com/HcashOrg/hcd/wire"
 )
 
 // Message types.

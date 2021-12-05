@@ -5,7 +5,7 @@
 package gui
 
 import (
-	"github.com/decred/slog"
+	"github.com/HcashOrg/slog"
 )
 
 // log is a logger that is initialized with no output filters.  This

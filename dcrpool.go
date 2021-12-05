@@ -16,7 +16,7 @@ import (
 	"runtime"
 
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/decred/dcrd/rpcclient"
+	"github.com/HcashOrg/hcrpcclient"
 
 	"github.com/btclinux/hcpool/gui"
 	"github.com/btclinux/hcpool/pool"
@@ -38,7 +38,7 @@ func newPool(cfg *config) (*miningPool, error) {
 	p := new(miningPool)
 	p.cfg = cfg
 	p.limiter = pool.NewRateLimiter()
-	dcrdRPCCfg := &rpcclient.ConnConfig{
+	dcrdRPCCfg := &hcrpcclient.ConnConfig{
 		Host:         cfg.DcrdRPCHost,
 		Endpoint:     "ws",
 		User:         cfg.RPCUser,

@@ -21,10 +21,10 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/decred/dcrd/blockchain"
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/HcashOrg/hcd/blockchain"
+	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/decred/dcrd/wire"
+	"github.com/HcashOrg/hcd/wire"
 )
 
 const (

@@ -25,7 +25,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/btclinux/hcpool/pool"
 )
 

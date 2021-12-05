@@ -21,9 +21,9 @@ import (
 	flags "github.com/jessevdk/go-flags"
 
 	"github.com/decred/dcrd/certgen"
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/hcutil"
-	"github.com/decred/slog"
+	"github.com/HcashOrg/slog"
 
 	"github.com/btclinux/hcpool/pool"
 )

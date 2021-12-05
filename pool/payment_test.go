@@ -12,7 +12,7 @@ import (
 	"time"
 
 	bolt "github.com/coreos/bbolt"
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/HcashOrg/hcd/chaincfg"
 	"github.com/HcashOrg/hcd/hcutil"
 )
 
