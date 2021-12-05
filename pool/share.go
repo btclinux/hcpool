@@ -15,7 +15,7 @@ import (
 	bolt "github.com/coreos/bbolt"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 )
 
 var (
