@@ -22,7 +22,7 @@ import (
 
 	"github.com/decred/dcrd/certgen"
 	"github.com/decred/dcrd/chaincfg"
-	"github.com/HcashOrg/hcd/dcrutil"
+	"github.com/HcashOrg/hcd/hcutil"
 	"github.com/decred/slog"
 
 	"github.com/btclinux/hcpool/pool"
