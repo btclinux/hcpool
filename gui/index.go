@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/pool"
 )
 
 type indexData struct {
