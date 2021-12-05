@@ -18,7 +18,7 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/pool"
 )
 
 // Work represents the data received from a work notification. It comprises of
