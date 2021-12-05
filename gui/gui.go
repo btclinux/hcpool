@@ -26,7 +26,7 @@ import (
 	"github.com/gorilla/sessions"
 
 	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrpool/pool"
+	"github.com/btclinux/hcpool/pool"
 )
 
 // Config represents configuration details for the pool user interface.
